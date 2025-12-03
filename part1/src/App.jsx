@@ -9,6 +9,20 @@ const Button = ({onClick, text}) => {
   )
 }
 
+const Statistics = ({good, bad, total}) => {
+  let sum = good - bad;
+  let avg = sum / total;
+  let positivePercent = (good / total) * 100;
+
+  return (
+    <div>
+      <p>Total: {total}</p>
+      <p>Average: {avg}</p>
+      <p>Positive Percentage: {positivePercent}</p>
+    </div>
+  )
+}
+
 const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
@@ -27,12 +41,6 @@ const App = () => {
     setBad(bad + 1);
     setTotal(total + 1);
   }
-  
-
-  let sum = good - bad;
-  let avg = sum / total;
-    
-  let positivePercent = (good / total) * 100;
 
   return (
     <div>
@@ -44,9 +52,7 @@ const App = () => {
       <p>Good: {good}</p>
       <p>Neutral: {neutral}</p>
       <p>Bad: {bad}</p>
-      <p>Total: {total}</p>
-      <p>Average: {avg}</p>
-      <p>Positive %: {positivePercent}</p>
+      <Statistics good={good} bad={bad} total={total} />
     </div>
   )
 }
