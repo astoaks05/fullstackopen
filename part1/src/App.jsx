@@ -11,14 +11,21 @@ const Button = ({onClick, text}) => {
 
 const StatisticsLine = ({text, value}) => {
   return (
-    <p>{text}{value}</p>
+    <table style={{width: "150px"}}>
+      <tbody>
+        <tr>
+          <th style={{textAlign: "left"}} >{text}</th>
+          <td style={{textAlign: "right"}}>{value}</td>
+        </tr>
+      </tbody>
+    </table>
   )
 }
 
-const Statistics = ({good, bad, total, neutral}) => {
+const Statistics = ({good, bad, all, neutral}) => {
   let sum = good - bad;
-  let avg = sum / total;
-  let positivePercent = (good / total) * 100;
+  let avg = sum / all;
+  let positivePercent = (good / all) * 100;
 
   if (good == 0 && bad == 0 && neutral == 0) {
     return (
@@ -30,9 +37,9 @@ const Statistics = ({good, bad, total, neutral}) => {
         <StatisticsLine text="Good: " value={good} />
         <StatisticsLine text="Neutral: " value={neutral} />
         <StatisticsLine text="Bad: " value={bad} />
-        <StatisticsLine text="Total: " value={total} />
+        <StatisticsLine text="All: " value={all} />
         <StatisticsLine text="Average: " value={avg} />
-        <StatisticsLine text="Positive Percentage: " value={positivePercent} />
+        <StatisticsLine text="Positive: " value={positivePercent} />
       </div>
     )
   }
@@ -42,19 +49,19 @@ const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [all, setAll] = useState(0);
 
   const handleGood = () => {
     setGood(good + 1);
-    setTotal(total + 1);
+    setAll(all + 1);
   }
   const handleNeutral = () => {
     setNeutral(neutral + 1);
-    setTotal(total + 1);
+    setAll(all + 1);
   }
   const handleBad = () => {
     setBad(bad + 1);
-    setTotal(total + 1);
+    setAll(all + 1);
   }
 
   return (
@@ -64,7 +71,7 @@ const App = () => {
       <Button onClick={handleNeutral} text="Neutral" />
       <Button onClick={handleBad} text="Bad" />
       <h1>Statistics</h1>
-      <Statistics good={good} bad={bad} total={total} neutral={neutral} />
+      <Statistics good={good} bad={bad} all={all} neutral={neutral} />
     </div>
   )
 }
