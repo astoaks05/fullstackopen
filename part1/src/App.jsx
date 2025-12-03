@@ -9,6 +9,12 @@ const Button = ({onClick, text}) => {
   )
 }
 
+const StatisticsLine = ({text, value}) => {
+  return (
+    <p>{text}{value}</p>
+  )
+}
+
 const Statistics = ({good, bad, total, neutral}) => {
   let sum = good - bad;
   let avg = sum / total;
@@ -21,12 +27,12 @@ const Statistics = ({good, bad, total, neutral}) => {
   } else {
     return (
       <div>
-        <p>Good: {good}</p>
-        <p>Neutral: {neutral}</p>
-        <p>Bad: {bad}</p>
-        <p>Total: {total}</p>
-        <p>Average: {avg}</p>
-        <p>Positive Percentage: {positivePercent}</p>
+        <StatisticsLine text="Good: " value={good} />
+        <StatisticsLine text="Neutral: " value={neutral} />
+        <StatisticsLine text="Bad: " value={bad} />
+        <StatisticsLine text="Total: " value={total} />
+        <StatisticsLine text="Average: " value={avg} />
+        <StatisticsLine text="Positive Percentage: " value={positivePercent} />
       </div>
     )
   }
