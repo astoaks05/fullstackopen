@@ -23,8 +23,8 @@ const StatisticsLine = ({text, value}) => {
 }
 
 const Statistics = ({good, bad, all, neutral}) => {
-  let sum = good - bad;
-  let avg = sum / all;
+  let score = good - bad;
+  let avg = (score / all);
   let positivePercent = (good / all) * 100;
 
   if (good == 0 && bad == 0 && neutral == 0) {
@@ -38,8 +38,8 @@ const Statistics = ({good, bad, all, neutral}) => {
         <StatisticsLine text="Neutral: " value={neutral} />
         <StatisticsLine text="Bad: " value={bad} />
         <StatisticsLine text="All: " value={all} />
-        <StatisticsLine text="Average: " value={avg} />
-        <StatisticsLine text="Positive: " value={positivePercent} />
+        <StatisticsLine text="Average: " value={avg.toFixed(2)} />
+        <StatisticsLine text="Positive %: " value={positivePercent.toFixed(1)} />
       </div>
     )
   }
@@ -61,6 +61,7 @@ const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
   const [all, setAll] = useState(0);
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
 
   const handleGood = () => {
     setGood(good + 1);
@@ -75,12 +76,17 @@ const App = () => {
     setAll(all + 1);
   }
 
-  const handleAnectdote = () => {
-    let ranNum = Math.floor(Math.random() * 8);
+  const handleAnecdote = () => {
+    const ranNum = Math.floor(Math.random() * anecdotes.length);
     setSelected(ranNum);
-    return (
-      <p>{anecdotes[selected]}</p>
-    )
+  }
+
+  const handleVote = () => {
+    setVotes(prev => {
+      const copy = [...prev];
+      copy[selected] = (copy[selected] || 0) + 1;
+      return copy;
+    });
   }
 
   return (
@@ -92,7 +98,9 @@ const App = () => {
       <h1>Statistics</h1>
       <Statistics good={good} bad={bad} all={all} neutral={neutral} />
       <p>{anecdotes[selected]}</p>
-      <Button onClick={handleAnectdote} text="Click for next anecdote" />
+      <p>Has {votes[selected]} votes.</p>
+      <Button onClick={handleVote} text="Vote" />
+      <Button onClick={handleAnecdote} text="Click for next anecdote" />
     </div>
   )
 }
