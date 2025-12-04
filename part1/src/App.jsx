@@ -88,6 +88,9 @@ const App = () => {
       return copy;
     });
   }
+  // Logic for finding max voted anecdote
+  const maxVotes = Math.max(...votes);
+  const mostVotedIndex = votes.indexOf(maxVotes);
 
   return (
     <div>
@@ -95,12 +98,22 @@ const App = () => {
       <Button onClick={handleGood} text="Good" />
       <Button onClick={handleNeutral} text="Neutral" />
       <Button onClick={handleBad} text="Bad" />
-      <h1>Statistics</h1>
+      <h2>Statistics</h2>
       <Statistics good={good} bad={bad} all={all} neutral={neutral} />
+      <h2>Anecdote of the day:</h2>
       <p>{anecdotes[selected]}</p>
       <p>Has {votes[selected]} votes.</p>
       <Button onClick={handleVote} text="Vote" />
       <Button onClick={handleAnecdote} text="Click for next anecdote" />
+      <h2>Anecdote with the most votes:</h2>
+      {maxVotes > 0 ? (
+        <div>
+          <p>{anecdotes[mostVotedIndex]}</p>
+          <p>Votes: {maxVotes}</p>
+        </div>
+      ) : (
+        <p>No votes cast yet.</p>
+      )}
     </div>
   )
 }
