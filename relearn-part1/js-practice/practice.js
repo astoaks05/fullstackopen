@@ -74,3 +74,28 @@
 // object1['secret number'] = 12341;
 
 // functions
+// const sum = (p1, p2) => {
+//     console.log(p1);
+//     console.log(p2);
+//     return p1 + p2;
+// }
+
+// const result = sum(1, 5);
+// console.log(result);
+
+// with just a single parameter, we can exclude the paranthesis
+// const square = p => {
+//     console.log(p);
+//     return p * p;
+// }
+// console.log(square(7));
+
+// if the function only contains a single expression, then the braces are not needed and the function returns the result of its only expression
+// const square = p => p * p;
+// console.log(square(9));
+
+// this form is particularly handy when manipulatin arrays, like using the map method
+// const t = [1, 2, 3];
+// const tSquared = t.map(p => p * p);
+// console.log(tSquared);
+
