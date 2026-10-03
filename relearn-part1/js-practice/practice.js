@@ -99,3 +99,49 @@
 // const tSquared = t.map(p => p * p);
 // console.log(tSquared);
 
+// method definition inside an object using javascript, specifically defining a property that happens to be a function
+// const arto = {
+//     name: 'Arto Hellas',
+//     age: 35,
+//     education: 'PhD',
+//     greet: function() {
+//         console.log('Hello, my name is ' + this.name)
+//     },
+//     doAddition: function(a, b) {
+//         console.log(a + b);
+//     },
+// }
+
+// // arto.greet();
+// // methods can also be assigned to objects even after the creation of the object
+// arto.growOlder = function() {
+//     this.age += 1;
+// }
+
+// console.log(arto.age); // prints 35
+// arto.growOlder();
+// console.log(arto.age); // prints 36
+
+// arto.doAddition(1, 4); // 5 is printed
+
+// const referenceToAddition = arto.doAddition;
+// referenceToAddition(10, 15); // 25 is printed
+
+// const referenceToGreet = arto.greet();
+// referenceToGreet(); // prints 'Hello, my name is undefined' because the function reference loses track of 'this'
+
+// classes kinda
+// class Person {
+//     constructor(name, age) // basically the init
+//     {
+//         this.name = name;
+//         this.age = age;
+//     }
+//     greet() {
+//         console.log('Hello, my name is ' + this.name);
+//     }
+// }
+// const adam = new Person('Adam Ondra', 33);
+// adam.greet()
+// const janja = new Person('Janja Garnbret', 27);
+// janja.greet()
