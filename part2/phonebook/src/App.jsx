@@ -1,16 +1,27 @@
+import AddNew from './components/AddNew';
+import DisplayPeople from './components/DisplayPeople';
+import Filter from './components/Filter';
 import {useState} from 'react';
+
 
 const App = () => {
   const [persons, setPersons] = useState([
-    {
-      name: "Arto Hellas",
-      id: 0,
-    }
+    { name: 'Arto Hellas', number: '040-123456', id: 1,},
   ]);
   const [newName, setNewName] = useState('');
+  const [newNumber, setNewNumber] = useState('');
+  const [newFilter, setNewFilter] = useState('');
+
+  const handleNewFilter = (event) => {
+    setNewFilter(event.target.value);
+  }
 
   const handleNewName = (event) => {
     setNewName(event.target.value);
+  }
+
+  const handleNewNumber = (event) => {
+    setNewNumber(event.target.value);
   }
 
   const handleNewPerson = (event) => {
@@ -26,6 +37,7 @@ const App = () => {
         persons.concat(
           {
             name: newName,
+            number: newNumber,
             id: persons.length + 1
           }
         )
@@ -36,20 +48,14 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit = {handleNewPerson}>
-        <div>
-          Name: <input value = {newName} onChange = {handleNewName} />
-        </div>
-        <button type = "submit">Add</button>
-      </form>
-      <h2>Numbers</h2>
-      <div>
-        {persons.map(person => 
-          <p key = {person.id}>
-            {person.name}
-          </p>
-        )}
-      </div>
+      <Filter value = {newFilter} onChange = {handleNewFilter}/>
+      <AddNew 
+        formSubmit = {handleNewPerson}
+        nameValue = {newName}
+        nameOnChange = {handleNewName}
+        numberValue = {newNumber}
+        numberOnChange = {handleNewNumber} />
+      <DisplayPeople persons = {persons} newFilter = {newFilter} />
     </div>
   )
 }
