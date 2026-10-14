@@ -1,16 +1,26 @@
 import AddNew from './components/AddNew';
 import DisplayPeople from './components/DisplayPeople';
 import Filter from './components/Filter';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import axios from 'axios';
+
+
 
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456', id: 1,},
   ]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [newFilter, setNewFilter] = useState('');
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(promise => {
+        setPersons(promise.data);
+      })
+  })
 
   const handleNewFilter = (event) => {
     setNewFilter(event.target.value);
