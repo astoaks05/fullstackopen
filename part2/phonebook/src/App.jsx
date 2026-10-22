@@ -4,9 +4,6 @@ import Filter from './components/Filter';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 
-
-
-
 const App = () => {
   const [persons, setPersons] = useState([
   ]);
@@ -19,8 +16,8 @@ const App = () => {
       .get('http://localhost:3001/persons')
       .then(promise => {
         setPersons(promise.data);
-      })
-  })
+      });
+  }, []);
 
   const handleNewFilter = (event) => {
     setNewFilter(event.target.value);
@@ -36,6 +33,12 @@ const App = () => {
 
   const handleNewPerson = (event) => {
     event.preventDefault();
+    
+    const newPersonObject = {
+      name: newName,
+      number: newNumber
+    }
+
     const samePerson = persons.find(
       person => person.name.toLowerCase() === newName.toLowerCase()
     ); //returns the person object that exists if you try to add the same person
@@ -43,15 +46,13 @@ const App = () => {
     if (samePerson) {
       alert(`${samePerson.name} is already added to the phonebook.`); // returns undefined otherwise
     } else {
-      setPersons(
-        persons.concat(
-          {
-            name: newName,
-            number: newNumber,
-            id: persons.length + 1
-          }
-        )
-      )
+      axios
+        .post('http://localhost:3001/persons', newPersonObject)
+        .then(response => {
+          setPersons(persons.concat(response.data));
+          setNewName('');
+          setNewNumber('');
+        })
     }
   }
 
