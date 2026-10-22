@@ -3,6 +3,7 @@ import DisplayPeople from './components/DisplayPeople';
 import Filter from './components/Filter';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
+import peopleService from './services/people';
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -12,10 +13,10 @@ const App = () => {
   const [newFilter, setNewFilter] = useState('');
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(promise => {
-        setPersons(promise.data);
+    peopleService
+      .getAll()
+      .then(initialPeople => {
+        setPersons(initialPeople);
       });
   }, []);
 
@@ -46,10 +47,10 @@ const App = () => {
     if (samePerson) {
       alert(`${samePerson.name} is already added to the phonebook.`); // returns undefined otherwise
     } else {
-      axios
-        .post('http://localhost:3001/persons', newPersonObject)
-        .then(response => {
-          setPersons(persons.concat(response.data));
+      peopleService
+        .create(newPersonObject)
+        .then(newPeople => {
+          setPersons(persons.concat(newPeople));
           setNewName('');
           setNewNumber('');
         })
