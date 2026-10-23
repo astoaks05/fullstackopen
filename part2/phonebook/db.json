@@ -3,22 +3,22 @@
     {
       "name": "Arto Hellas",
       "number": "040-123456",
-      "id": "1"
+      "id": "YNbJbXgIl4g"
     },
     {
       "name": "Ada Lovelace",
       "number": "39-44-5323523",
-      "id": "2"
+      "id": "LsOViQA7hQc"
     },
     {
       "name": "Dan Abramov",
       "number": "12-43-234345",
-      "id": "3"
+      "id": "wesQ6bmU7Ho"
     },
     {
       "name": "Olivia Ziegenhagen",
-      "number": "01-30-350574",
-      "id": "49kDLJpgRZU"
+      "number": "303-505-7423",
+      "id": "6_4l2SWBMGU"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

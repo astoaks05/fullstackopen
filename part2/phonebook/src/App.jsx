@@ -57,6 +57,22 @@ const App = () => {
     }
   }
 
+  const handleDeletion = (id) => {
+    const person = persons.filter(person => person.id === id);
+
+    if (!window.confirm(`Are you sure you want to delete ${person[0].name}`)) {
+            return;
+          }
+
+    axios
+      .delete(`http://localhost:3001/persons/${id}`)
+      .then(
+        () => {
+          setPersons(persons.filter(person => person.id !== id))
+        }
+      )
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -67,7 +83,7 @@ const App = () => {
         nameOnChange = {handleNewName}
         numberValue = {newNumber}
         numberOnChange = {handleNewNumber} />
-      <DisplayPeople persons = {persons} newFilter = {newFilter} />
+      <DisplayPeople persons = {persons} newFilter = {newFilter} handleDeletion = {handleDeletion}/>
     </div>
   )
 }
