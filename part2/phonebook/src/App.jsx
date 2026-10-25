@@ -45,7 +45,20 @@ const App = () => {
     ); //returns the person object that exists if you try to add the same person
 
     if (samePerson) {
-      alert(`${samePerson.name} is already added to the phonebook.`); // returns undefined otherwise
+      if (!window.confirm(`${newName} is already added to the phonebook. Would you like to update their number?`)) {
+        return;
+      }
+      peopleService
+        .update(newPersonObject, samePerson.id)
+        .then(updatedPerson => {
+          setPersons(
+            persons.map((person) => {
+              return person.id === updatedPerson.id ? updatedPerson : person
+            })
+          );
+          setNewName('');
+          setNewNumber('');
+        })
     } else {
       peopleService
         .create(newPersonObject)
