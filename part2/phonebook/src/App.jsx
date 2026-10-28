@@ -1,5 +1,6 @@
 import AddNew from './components/AddNew';
 import DisplayPeople from './components/DisplayPeople';
+import Error from './components/Error';
 import Filter from './components/Filter';
 import Notification from './components/Notification';
 
@@ -16,6 +17,7 @@ const App = () => {
   const [newFilter, setNewFilter] = useState('');
   const [message, setMessage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     peopleService
@@ -64,6 +66,12 @@ const App = () => {
           setNewName('');
           setNewNumber('');
         })
+        .catch(error => {
+          setErrorMessage(`${samePerson.name} was already deleted from the server`);
+          setTimeout(() => {
+            setErrorMessage(null);
+          }, 5000);
+        })
     } else {
       peopleService
         .create(newPersonObject)
@@ -101,6 +109,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Notification message = {message} showMessage = {showMessage} />
+      <Error message = {errorMessage} />
       <Filter value = {newFilter} onChange = {handleNewFilter}/>
       <AddNew 
         formSubmit = {handleNewPerson}
