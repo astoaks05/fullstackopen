@@ -1,7 +1,7 @@
 const Search = ({ value, onChange }) => {
     return (
         <div>
-            Find countries: 
+            Find countries:  
             <input value = {value} onChange = {onChange}>
             </input>
         </div>
