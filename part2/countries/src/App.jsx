@@ -9,6 +9,7 @@ const App = () => {
   // STATES ===============================
   const [countries, setCountries] = useState([]);
   const [filter, setFilter] = useState('');
+  const [displayCountry, setDisplayCountry] = useState(null);
 
   // EFFECT HOOK ==========================
   useEffect(() => {
@@ -22,7 +23,12 @@ const App = () => {
   // EVENT HANDLERS =======================
   const handleFilter = (event) => {
     event.preventDefault();
+    setDisplayCountry(null);
     setFilter(event.target.value);
+  }
+
+  const handleShow = (country) => {
+    setDisplayCountry(country);
   }
 
   // RENDERING ============================
@@ -30,7 +36,7 @@ const App = () => {
     <div>
       <h1>Countries</h1>
       <Search value = {filter} onChange = {handleFilter} />
-      <Results countries = {countries} filter = {filter} />
+      <Results countries = {countries} filter = {filter} handleShow = {handleShow} displayCountry = {displayCountry} />
     </div>
   )
 }

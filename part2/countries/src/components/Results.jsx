@@ -1,4 +1,4 @@
-const Results = ({ countries, filter }) => {
+const Results = ({ countries, filter, handleShow, displayCountry }) => {
     if (countries.length === 0) {
         return (
             <p>Loading...</p>
@@ -8,6 +8,26 @@ const Results = ({ countries, filter }) => {
     if (filter === '') {
         return (
             <p>Search for a country!</p>
+        )
+    }
+
+    if (displayCountry) {
+        return (
+            <div>
+                <h1>{displayCountry.name.common}</h1>
+                    <p>Capital: {displayCountry.capital} </p>
+                    <p>Area: {displayCountry.area}</p>
+                    <h2>Languages</h2>
+                    <ul>
+                        {Object.entries(displayCountry.languages ?? {}).map(([code, language]) => (
+                            <li key = {code}>{language}</li>                )
+                            )}
+                    </ul>
+                    <img 
+                        src={displayCountry.flags.png}
+                        alt={displayCountry.flags.alt || `Flag of ${displayCountry.name.common}`}
+                    />
+            </div>
         )
     }
 
@@ -23,7 +43,6 @@ const Results = ({ countries, filter }) => {
     } else if (matches.length <= 10) {
         // When only one country matches
         if (matches.length === 1) {
-            console.log(matches[0]);
             return (
                 <div>
                     <h1>{matches[0].name.common}</h1>
@@ -46,7 +65,10 @@ const Results = ({ countries, filter }) => {
         return (
             <div>
                 {matches.map((country) => (
-                    <p key = {country.cca3} >{country.name.common}</p>
+                    <div key = {country.cca3}>
+                        <p>{country.name.common}</p> 
+                        <button id = {country} onClick = {() => handleShow(country)}>Show</button>  
+                    </div> 
                 ))}
             </div>
         )
