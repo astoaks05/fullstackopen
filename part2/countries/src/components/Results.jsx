@@ -1,4 +1,4 @@
-const Results = ({ countries, filter, handleShow, displayCountry }) => {
+const Results = ({ countries, filter, handleShow, displayCountry, displayWeather }) => {
     if (countries.length === 0) {
         return (
             <p>Loading...</p>
@@ -11,7 +11,7 @@ const Results = ({ countries, filter, handleShow, displayCountry }) => {
         )
     }
 
-    if (displayCountry) {
+    if (displayCountry && displayWeather) {
         return (
             <div>
                 <h1>{displayCountry.name.common}</h1>
@@ -27,6 +27,10 @@ const Results = ({ countries, filter, handleShow, displayCountry }) => {
                         src={displayCountry.flags.png}
                         alt={displayCountry.flags.alt || `Flag of ${displayCountry.name.common}`}
                     />
+                    <h1>Weather in {displayCountry.capital}</h1>
+                    <p>Temperature: {displayWeather.main.temp} degrees Celcius</p>
+                    <img src={`https://openweathermap.org/img/wn/${displayWeather.weather[0].icon}@2x.png`}></img>
+                    <p>Wind: {displayWeather.wind.speed} m/s</p>
             </div>
         )
     }
@@ -58,6 +62,17 @@ const Results = ({ countries, filter, handleShow, displayCountry }) => {
                         src={matches[0].flags.png}
                         alt={matches[0].flags.alt || `Flag of ${matches[0].name.common}`}
                     />
+                    {
+                        displayWeather?
+                        <div>
+                            <h1>Weather in {displayCountry.capital}</h1>
+                            <p>Temperature: {displayWeather.main.temp} degrees Celcius</p>
+                            <img src={`https://openweathermap.org/img/wn/${displayWeather.weather[0].icon}@2x.png`}></img>
+                            <p>Wind: {displayWeather.wind.speed} m/s</p>
+                        </div>
+                        :
+                        <p>Loading weather report... </p>
+                    }
                 </div>
             )
         }
